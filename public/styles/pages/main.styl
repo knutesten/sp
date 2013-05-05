@@ -1,0 +1,36 @@
+//-------------Main-------------//
+//A margin div is created between each button, because margin-width in percentage is relative to the width of the element (CSS is so fucking lame).
+.margin
+  width: 100%
+  height: 5px
+  @media (max-height: 550px)
+    height: 1%
+
+.nav-item
+  color: white
+  text-decoration: none
+
+  display:block
+  overflow: hidden
+  cursor: default
+  
+  margin-left:auto
+  margin-right:auto
+
+  background: steelblue
+
+  width: 300px
+  @media (max-width: 300px)
+    width:100%
+    font-size: 35px
+
+  height: 125px
+  @media (max-height: 515px)
+    height: 24.25%
+
+  &:visited
+    color:white
+
+  &:hover
+    background:white
+    color: steelblue

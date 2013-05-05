@@ -1,40 +1,53 @@
-var hash = require("./pass").hash;
+var hash = require('./pass').hash;
+var Users = require('../models/users');
 
-var users = {
-  knutesten: { username: "knutesten" }
-};
-
+/*
 hash('fortsett', function (err, salt, hash) {
-  users.knutesten.salt = salt;
-  users.knutesten.hash = hash;
+  new Users({
+    username: 'knutesten',
+    hash: hash,
+    salt: salt,
+    name: 'Knut Esten Melandsø Nekså'
+  }).save();
 });
+*/
 
 exports.authenticate = function (username, password, callback) {
-  var user = users[username];
-  if (!user) {
-    return callback(new Error('Cannot find user'));
-  }
-
-  hash(password, user.salt, function (err, hash) {
+  Users.findOne({ username: username }, function (err, user) {
     if (err) {
       return callback(err);
     }
 
-    if (hash == user.hash) {
-      return callback(null, user);
+    if (!user) {
+      return callback(new Error('Cannot find user.'));
     }
 
-    callback(new Error('Invalid password'));
+    hash(password, user.salt, function (err, hash) {
+      if (err) {
+        return callback(err);
+      }
+
+      if (hash == user.hash) {
+        return callback(null, user);
+      }
+
+      callback(new Error('Invalid password.'));
+    });
   });
 };
 
 exports.authenticateCookie = function (username, hash, callback) {
-  var user = users[username];
-  if (!user) {
-    return callback(new Error('Cannot find user'));
-  }
+  Users.findOne({ username: username }, function (err, user) {
+    if (err) {
+      return callback(err);
+    }
 
-  if (hash = user.hash) {
-    return callback(null, user);
-  }
+    if (!user) {
+      return callback(new Error('Cannot find user.'));
+    }
+
+    if (hash = user.hash) {
+      return callback(null, user);
+    }
+  });
 };

@@ -6,9 +6,19 @@
 var express = require('express')
   , router = require('./routes/router')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongoose = require('mongoose');
 
 var app = express();
+
+// Attempt connection to database
+mongoose.connect('mongodb://localhost/SP');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.on('open', function callback() {
+  console.log("Conneciton to database established.");
+});
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);

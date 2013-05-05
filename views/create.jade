@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  form(method="post")#create-form
+    div.create-form-header
+      h1 Create a new protocol
+    div.create-form-body
+      label Ware:
+      input(type="text", name="ware")
+      label Date:
+      input.date(type="date", name="date")
+      label Price:
+      input(type="text", name="price")
+      label Select debtors:
+      - each user in users
+        input(type="checkbox", name="debtors", value="#{user.username}")
+        label= user.name
+      button(onclick="submitCreateForm()") Add protocol

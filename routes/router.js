@@ -5,6 +5,7 @@ handler['/'] = require('./index');
 handler['/login'] = require('./login');
 handler['/logout'] = require('./logout');
 handler['/main'] = require('./main');
+handler['/create'] = require('./create');
 
 module.exports = function (app) {
   for(var route in handler){

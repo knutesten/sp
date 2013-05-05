@@ -8,5 +8,52 @@ body
   font: 45px "Lucida Grande", Helvetica, Arial, sans-serif
   color: black
 
-@import './pages/main'
+.header
+  color: white
+  height: 130px
+  background: steelblue
+  margin-bottom: 40px
+  h1
+    padding-top: 20px
+    margin:0
+    text-align: center
+    font-size: 70px
+
+.error
+  font-weight: bold
+  color:red
+  display:block
+  padding-bottom: 3px
+
+.standard-form
+  padding: 20px
+  background: aliceblue
+  font-size: 13px
+  width: 300px
+
+  border: 1px solid cornflowerblue
+
+  margin-left: auto
+  margin-right: auto
+
+  .form-body
+    label
+      font-weight: 700
+    input
+      width: 100%
+      display: block
+      margin-bottom: 20px
+    
+    button
+      border-radius: 3px
+      font-size: 17px
+      font-weight: bold
+      padding:10px
+      border: 1px solid cornflowerblue
+      margin-top: 20px
+      background: steelblue
+      color: white
+
 @import './pages/login'
+@import './pages/main'
+@import './pages/create'

@@ -1,19 +1,20 @@
 extends layout
 
 block content
-  form(method="post")#login-form
-    div.login-form-header
-      h1 Sign in
-    div.login-form-body
+  div.header
+    h1 Sign in
+ 
+  form(method="post").standard-form
+   div.form-body
       if(typeof(error) == "string")
         label.error= error
       label Username:
-      input(type="text", name="username", id="user-tf")
+      input(type="text", name="username")
       label Password:
-      input(type="password", name="password", id="pass-tf")
-      div.login-form-submit
-        button(type="submit").ml-button-5 Sign in
-        input(type="checkbox", name="remember", id="remember-ch")
+      input(type="password", name="password")
+      div#login-form-submit
+        button(type="submit") Sign in
+        input(type="checkbox", name="remember")
         label Remember me
 
 block scripts

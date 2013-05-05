@@ -38,6 +38,15 @@ function submitCreateForm() {
         debtors: "debtors"
     },
     errorElement: "span",
+    errorPlacement: function (error, element) {
+      var labelElement;
+      if ($(element).attr('name') == "debtors") {
+        labelElement = $(element).parent().prev('label');
+      } else {
+        labelElement = $(element).prev('label');
+      }
+      error.insertAfter(labelElement);
+    },
     messages: {
       ware: "You must enter a ware.",
       price: {

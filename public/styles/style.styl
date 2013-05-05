@@ -6,7 +6,7 @@ body
   margin: 0
   height: 100%
   font: 45px "Lucida Grande", Helvetica, Arial, sans-serif
-  color: white
+  color: black
 
 
 //-------------Main-------------//
@@ -17,7 +17,11 @@ body
   @media (max-height: 550px)
     height: 1%
 
-#nav
+#navItem
+  color: white
+  text-decoration: none
+
+  display:block
   overflow: hidden
   cursor: default
   
@@ -34,6 +38,9 @@ body
   height: 125px
   @media (max-height: 515px)
     height: 24.25%
+
+  &:visited
+    color:white
 
   &:hover
     background:white

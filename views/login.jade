@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  if(typeof(error) == "string")
+    p= error
+  form(method="post")#loginFrom
+    input(type="text", name="username", id="userTf")
+    input(type="text", name="password", id="passTf")
+    input(type="checkbox", name="remember", id="rememberC")
+    button(type="submit") Sign in
+
+block scripts
+  script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js")
+  script(src="http://malsup.github.com/jquery.form.js")
+  script(src="js/login.js")

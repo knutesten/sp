@@ -32,7 +32,7 @@ exports.post = function (req, res) {
 
           // All the protocols have been written to database.
           if (--protocolsLeft == 0){
-            res.redirect('main');
+            res.redirect('overview');
           }
         });
       });

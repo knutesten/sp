@@ -18,7 +18,6 @@ db.on('open', function callback() {
   console.log("Conneciton to database established.");
 });
 
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');

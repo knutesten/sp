@@ -83,6 +83,18 @@ exports.get = function (req, res) {
     }
 
     // Format numbers
+    for (var key in overview) {
+      var number = overview[key].owed;
+
+      // Use two decimals and use ',' instead of '.' (norwegian standard).
+      number = number.toFixed(2).replace('.', ',');
+
+      // Add a space if the number is above 999.99. (ex. 1 000.33).
+      var len = number.length;
+      number =len>6?number.substring(0, len-6)+' '+number.substring(len-6):number;
+
+      overview[key].owed = number;  
+    }
 
     return overview;
   }

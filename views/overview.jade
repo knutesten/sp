@@ -3,5 +3,13 @@ extends layout
 block content
   div.header
     h1 Overview
-  - each row in overview
-    p #{row.name}: #{row.owed} 
+  table.overview-table
+    thead
+      tr
+        th Name
+        th What you owe
+    tbody 
+      - each row in overview
+        tr.number-cell
+          td #{row.name}
+          td #{row.owed} 

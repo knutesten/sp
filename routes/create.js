@@ -51,9 +51,12 @@ function validateForm(req, callback) {
   var protocols = [];
   var user = req.session.user.username;
   var debtors = req.body.debtors;
+  // Make sure that debtors is a list, or else .length will give the wrong value.
+  debtors = debtors instanceof Array?debtors:[debtors];
   
   var price = parseFloat(req.body.price);
   var debt = price / debtors.length; 
+  console.log(debt);
   
   for (var key in debtors) {
     if (user == debtors[key]) {

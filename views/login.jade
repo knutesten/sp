@@ -14,8 +14,8 @@ block content
       input(type="password", name="password")
       div#login-form-submit
         button(type="submit") Sign in
-        input(type="checkbox", name="remember")
-        label Remember me
+        input(type="checkbox", name="remember", id="remember-me")
+        label(for="remember-me") Remember me
 
 block scripts
   script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js")

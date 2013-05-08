@@ -4,14 +4,12 @@ var mongoose = require('mongoose')
 
 var protocolsSchema = new Schema({
   id: ObjectId,
-  ware: String,
   buyer: String,
-  price: Number,
   date: String,
-  debtors: [{
-    username: String,
-    debt: Number
-  }]
+  ware: String,
+  debtor: String,
+  originalDebt: Number,
+  debtLeft: Number
 });
 
 module.exports = mongoose.model('Protocols', protocolsSchema);

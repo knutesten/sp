@@ -13,23 +13,28 @@ exports.get = function (req, res) {
   });
 };
 
+
+function async(arg, callback){
+  args.save();
+}
 exports.post = function (req, res) {
-  validateForm(req, function (err, ware, price, date, debtors) {
+  validateForm(req, function (err, protocols) {
     if (err) {
       // TODO: Find some smart way to handle this type of error. Can't really send it with res.render, because you don't have access to the users.
     } else {
-      new Protocols({
-        ware: ware,
-        price: price,
-        date: date,
-        buyer: req.session.user.username,
-        debtors: debtors
-      }).save(function (err) {
-        if (err) {
-          // TODO: Handle this type of errors, maybe make an error page where you can route all types of errors
-        } else {
-          res.redirect('overview');
-        }
+      // Save all the new protocols to the database in parallel
+      var protocolsLeft = protocols.length;
+      protocols.forEach(function (protocol) {
+        protocol.save(function (err) {
+          if (err) {
+            // TODO: Handle write error.
+          }
+
+          // All the protocols have been written to database.
+          if (--protocolsLeft == 0){
+            res.redirect('main');
+          }
+        });
       });
     }
   });
@@ -37,23 +42,27 @@ exports.post = function (req, res) {
 
 // TODO: Actual server-side validation. This might not be necessary because the chance of any of the users tampering with the POST or javascript is unlikely.
 function validateForm(req, callback) {
+  var protocols = [];
   var user = req.session.user.username;
-  var selectedDebtors = req.body.debtors;
+  var debtors = req.body.debtors;
   
   var price = parseFloat(req.body.price);
-  var debt = price / selectedDebtors.length; 
+  var debt = price / debtors.length; 
   
-  var debtors = [];
-  for (var key in selectedDebtors) {
-    if (user == selectedDebtors[key]) {
+  for (var key in debtors) {
+    if (user == debtors[key]) {
       continue;
     }
-  
-    debtors.push({
-      username: selectedDebtors[key],
-      debt: debt
-    });
+
+    protocols.push(new Protocols({
+      buyer: user,
+      date: req.body.date,
+      ware: req.body.ware,
+      debtor: debtors[key],
+      originalDebt: debt,
+      debtLeft: debt
+    }));
   }
 
-  callback(null, req.body.ware, price, req.body.date, debtors);
+  callback(null, protocols);
 };

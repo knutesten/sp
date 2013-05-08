@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  div.header
+    h1 Overview
+  - each row in overview
+    p #{row.name}: #{row.owed} 

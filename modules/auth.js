@@ -1,8 +1,33 @@
 var hash = require('./pass').hash;
 var Users = require('../models/users');
 
+/* CREATE DUMMY USERS */
 /*
-hash('fortsett', function (err, salt, hash) {
+hash('pass', function (err, salt, hash) {
+  new Users({
+    username: 'borell',
+    hash: hash,
+    salt: salt,
+    name: 'Fredrik Wilhelm Borelly'
+  }).save();
+});
+hash('pass', function (err, salt, hash) {
+  new Users({
+    username: 'krogh',
+    hash: hash,
+    salt: salt,
+    name: 'Vegar(d) Krogh Arnesen'
+  }).save();
+});
+hash('pass', function (err, salt, hash) {
+  new Users({
+    username: 'jhsoby',
+    hash: hash,
+    salt: salt,
+    name: 'Jon Harald Søby'
+  }).save();
+});
+hash('pass', function (err, salt, hash) {
   new Users({
     username: 'knutesten',
     hash: hash,

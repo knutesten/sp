@@ -8,15 +8,21 @@ exports.get = function (req, res) {
     if (err) {
       // TODO handle error.
     } else {
+      // Move the signed in user to the top of the list.
+      var logedIn = req.session.user.username;
+      for (var i in users) {
+        if (users[i].username == logedIn) {
+          var tmp = users[i];
+          users[i] = users[0];
+          users[0] = tmp;
+        }
+      }
+
       res.render('create', { users: users });
     }
   });
 };
 
-
-function async(arg, callback){
-  args.save();
-}
 exports.post = function (req, res) {
   validateForm(req, function (err, protocols) {
     if (err) {
@@ -24,18 +30,18 @@ exports.post = function (req, res) {
     } else {
       // Save all the new protocols to the database in parallel
       var protocolsLeft = protocols.length;
-      protocols.forEach(function (protocol) {
-        protocol.save(function (err) {
+      for (var i in protocols) {
+        protocols[i].save(function (err) {
           if (err) {
             // TODO: Handle write error.
           }
 
-          // All the protocols have been written to database.
+          //Is true when alle the protocols have been writen to the database.
           if (--protocolsLeft == 0){
             res.redirect('overview');
           }
         });
-      });
+      }
     }
   });
 };

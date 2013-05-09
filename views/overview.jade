@@ -9,7 +9,9 @@ block content
         th Name
         th What you owe
     tbody 
+      - var count = 0;
       - each row in overview
-        tr.number-cell
+        - var c = count++%2==0?'odd':'even';
+        tr(class="#{c}")
           td #{row.name}
-          td #{row.owed} 
+          td.number-cell #{row.owed} 

@@ -1,5 +1,6 @@
 //-------------Main-------------//
 //A margin div is created between each button, because margin-width in percentage is relative to the width of the element (CSS is so fucking lame).
+main-background-color = black
 
 user-select(args)
   -webkit-user-select: args  
@@ -11,12 +12,12 @@ user-select(args)
 .nav
   height:100%
   widht:100%
-  background:steelblue
+  background: main-background-color
 
 .nav-item
   color: white
-  height: 130px
-  background: steelblue
+  height: 100px
+  background: main-background-color
   display:block
   text-decoration:none
   
@@ -25,7 +26,7 @@ user-select(args)
 
   &:hover
     background:white
-    color: steelblue 
+    color: main-background-color
 
   h1
     user-select(none)
@@ -33,4 +34,4 @@ user-select(args)
     padding-top: 20px
     margin:0
     text-align: center
-    font-size: 70px
+    font-size: 50px

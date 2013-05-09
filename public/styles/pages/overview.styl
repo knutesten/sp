@@ -1,13 +1,12 @@
 table-cell-border-color = cornflowerblue
 table-border-color = #33CC33
-table-background-color = #F5FBF7
-table-header-background-color = #19A347
+table-background-color = #DCE2DE
+table-header-background-color = darkgreen
 
 .overview-table
   background: table-background-color
   border-spacing: 0
-  border: 1px solid table-border-color
-  border-collapse:seperate
+  border-collapse: separate
 
   margin-left: auto
   margin-right: auto
@@ -20,9 +19,16 @@ table-header-background-color = #19A347
     text-align: left
 
     th
-      color: black
+      font-size: 25px
+      color: white
       padding: 10px
       border: 0
+
+  tbody
+    border: 1px solid table-border-color
+
+    .even
+      background: #F5FBF7
 
   td
     border-spacing: 0

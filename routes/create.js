@@ -74,7 +74,9 @@ function validateForm(req, callback) {
   // Make sure that debtors is a list, or else .length will give the wrong value.
   debtors = debtors instanceof Array?debtors:[debtors];
   var price = parseFloat(req.body.price);
-  var debt = price / debtors.length; 
+  var debt = price / debtors.length;
+  // Only two decimals precision.
+  debt = parseFloat(debt.toFixed(2)); 
 
   //Remove logged in user from the debtors.
   if (debtors[0]==loggedIn) { debtors.shift() }

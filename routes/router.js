@@ -7,6 +7,7 @@ handler['/logout'] = require('./logout');
 handler['/main'] = require('./main');
 handler['/create'] = require('./create');
 handler['/overview'] = require('./overview');
+handler['/clear'] = require('./clear');
 
 module.exports = function (app) {
   for(var route in handler){

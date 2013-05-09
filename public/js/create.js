@@ -30,12 +30,12 @@ $(document).ready(function () {
 function submitCreateForm() {
   var validator = $('#create-form').validate({
     rules: {
-        ware: "required",
-        price: {
-          required: true, 
-          number: true
-        },
-        debtors: "debtors"
+      ware: "required",
+      price: {
+        required: true, 
+        number: true
+      },
+      debtors: "debtors"
     },
     errorElement: "span",
     errorPlacement: function (error, element) {

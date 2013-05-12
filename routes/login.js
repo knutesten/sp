@@ -28,10 +28,10 @@ exports.post = function (req, res) {
     if (user) {
       req.session.regenerate(function () {
         req.session.user = user;
-
+        var week = 7*24*60*60*1000;
         if (req.body.remember) {
-          res.cookie('username', user.username, { maxAge: 900000 });
-          res.cookie('hash', user.hash, { maxAge: 900000 });
+          res.cookie('username', user.username, { maxAge: week });
+          res.cookie('hash', user.hash, { maxAge: week });
         }
 
         res.redirect('main');

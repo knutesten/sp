@@ -2,14 +2,15 @@ doctype 5
 html
   head
     link(rel='stylesheet', href='/styles/style.css')
+
   body
     block content
-
     //--------------JavaScritps--------------// 
-    // Libs
+    // Litbs
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js") 
     script(src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js")
 
-    // For each view
-    script(src="js/create.js")
-    script(src="js/clear.js")
+    // Autofocus first input
+    script(src="js/auto-focus.js")
+
+    block script

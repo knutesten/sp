@@ -5,6 +5,8 @@ block content
     h1 Create a new protocol
   form(method="post")#create-form.standard-form
     div.form-body
+      - if(typeof(info) == 'string')
+        label.info= info
       label Ware:
       input(type="text", name="ware")
       label Date:
@@ -17,3 +19,6 @@ block content
           input(type="checkbox", name="debtors", value="#{user.username}", id="#{user.username}")
           label(for="#{user.username}")= user.name
       button(onclick="submitCreateForm()") Add protocol
+
+block script
+  script(src="js/create.js")

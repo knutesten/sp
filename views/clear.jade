@@ -6,10 +6,15 @@ block content
 
   form(method="post")#clear-form.standard-form
     div.form-body
+      - if(typeof(info) == 'string')
+        label.info= info
       label User to pay:
       select(name="lender") autofocus
-        - each row in overview
+        - each row in debtList
           option(value="#{row.username}", max="#{row.owed}") #{row.name}
       label Amount to pay back:
       input(type="text", name="amount")
       button(onclick="submitClearForm()") Clear debt
+
+block script
+    script(src="js/clear.js")

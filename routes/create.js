@@ -4,6 +4,9 @@ var Users = require('../models/users');
 exports.restrict = true;
 
 exports.get = function (req, res) {
+  var info = req.session.info;
+  delete req.session.info;
+
   Users.find(function (err, users) {
     if (err) {
       // TODO handle error.
@@ -17,8 +20,8 @@ exports.get = function (req, res) {
           users[0] = tmp;
         }
       }
-
-      res.render('create', { users: users });
+      
+      res.render('create', { users: users, info: info });
     }
   });
 };
@@ -57,7 +60,8 @@ exports.post = function (req, res) {
       }
 
       function writeDone() {
-        res.redirect('overview');
+        req.session.info = 'The protocols have been saved.';
+        res.redirect('create');
       }
     }
   });

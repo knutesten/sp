@@ -3,20 +3,28 @@ var Protocols = require('../models/protocols')
 
 exports.restrict = true;
 
+function getDebtList(loggedIn, callback) {
+}
+
 exports.get = function (req, res) {
   var loggedIn = req.session.user.username;
+  var info = req.session.info;
+  delete req.session.info;
+
   generateOverview(loggedIn, function(err, overview) {
     if (err) {
       // TODO: Handle error.
     } else {
+      var debtList = overview;
+
       // Remove the users that the logged in user don't owe money.
-      for (var user in overview) {
-        if (overview[user].owed <= 0) {
-          delete overview[user];
+      for (var user in debtList) {
+        if (debtList[user].owed <= 0) {
+          delete debtList[user];
         }
       }
 
-      res.render('clear', { overview: overview });
+      res.render('clear', { debtList: debtList, info: info });
     }
   });
 }
@@ -71,6 +79,7 @@ exports.post = function (req, res) {
   
   // Called when everything is done.
   function done() {
-    res.redirect('overview');
+    req.session.info = 'The protocols have been updated.';
+    res.redirect('clear');
   }
 }

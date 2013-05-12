@@ -1,4 +1,5 @@
-var generateOverview = require('../modules/overview');
+var generateOverview = require('../modules/overview')
+  , getProtocolList  = require('../modules/protocol-list');
 
 exports.restrict = true;
 
@@ -11,5 +12,8 @@ exports.get = function (req, res) {
     } else {
       res.render('overview', { overview: overview });
     }
+  });
+
+  getProtocolList(loggedIn, function (err, protocols) {
   });
 };

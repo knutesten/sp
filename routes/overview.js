@@ -6,14 +6,34 @@ exports.restrict = true;
 exports.get = function (req, res) {
   // Get the signed in user
   var loggedIn = req.session.user.username;
-  generateOverview(loggedIn, function (err, overview) {
+
+  var callbacksLeft = 2;
+  var overview
+    , protocols;
+
+  generateOverview(loggedIn, function (err, results) {
     if (err) {
       // TODO: Handle error.
     } else {
-      res.render('overview', { overview: overview });
+      overview = results;
+      if (--callbacksLeft == 0) {
+        done();
+      }
     }
   });
 
-  getProtocolList(loggedIn, function (err, protocols) {
+  getProtocolList(loggedIn, function (err, results) {
+    if (err) {
+      // TODO: Handle error.
+    } else {
+      protocols = results;
+      if(--callbacksLeft == 0) {
+        done();
+      }
+    }
   });
+
+  function done() {
+    res.render('overview', { overview: overview, protocols: protocols });
+  }
 };

@@ -5,10 +5,13 @@ var Users     = require('../models/users')
 module.exports = function getProtocolList(loggedIn, callback){
   var finds = [];
   var results = [];
+  var usersList = {};
 
   // Get the usernames.
   Users.find().exec(function (err, users) {
     for (var i in users) {
+      usersList[users[i].username] = users[i].name;
+
       if (users[i].username == loggedIn) {
         continue;
       }
@@ -18,7 +21,7 @@ module.exports = function getProtocolList(loggedIn, callback){
         .find({$or: [ 
           {debtor: loggedIn, buyer:  users[i].username }, 
           {buyer:  loggedIn, debtor: users[i].username }]})
-        .sort({ date: 1 })
+        .sort({ debtLeft: -1,  date: -1 })
       );
     }
 
@@ -40,14 +43,15 @@ module.exports = function getProtocolList(loggedIn, callback){
           name: users[i].name,
           protocols: result
         };
+
         if (--findsLeft == 0) {
           done();
         }
       });
     }
-  });
 
-  function done() {
-    callback(null, results);
-  }
+    function done() {
+      callback(null, results, usersList);
+    }
+  });
 }

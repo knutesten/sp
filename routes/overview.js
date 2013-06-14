@@ -9,7 +9,8 @@ exports.get = function (req, res) {
 
   var callbacksLeft = 2;
   var overview
-    , protocols;
+    , protocols
+    , users;
 
   generateOverview(loggedIn, function (err, results) {
     if (err) {
@@ -22,11 +23,12 @@ exports.get = function (req, res) {
     }
   });
 
-  getProtocolList(loggedIn, function (err, results) {
+  getProtocolList(loggedIn, function (err, results1, results2) {
     if (err) {
       // TODO: Handle error.
     } else {
-      protocols = results;
+      protocols = results1;
+      users = results2;
       if(--callbacksLeft == 0) {
         done();
       }
@@ -34,6 +36,6 @@ exports.get = function (req, res) {
   });
 
   function done() {
-    res.render('overview', { overview: overview, protocols: protocols });
+    res.render('overview', { overview: overview, protocols: protocols, users: users });
   }
 };

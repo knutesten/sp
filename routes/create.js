@@ -108,7 +108,6 @@ function validateForm(req, callback) {
         // TODO: Handle error.
       }
 
-      console.log(result);
       protocols[i] = result;
       if (--findsLeft == 0) {
         done();

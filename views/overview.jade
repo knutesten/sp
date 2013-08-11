@@ -16,21 +16,24 @@ block content
           td= row.name
           td.number-cell= row.owedFormatted
 
-  - each row in protocols
-    div.protocol-container
-      div.protocol-table-row.protocol-table-header
-        div(class="date")      Date
-        div(class="lender")    Lender
-        div(class="ware")      Ware
-        div(class="orig-debt") Original debt
-        div(class="debt-left") Debt left
-      div.protocol-scroll-box
-       - each prot in row.protocols
-          - var c1 = row.username==prot.buyer?'owed':'lended';
-          - var c2 = prot.debtLeft==0?'inactive':'active';
-          div(class="#{c1} #{c2} protocol-table-row")
-            div(class="date")=      prot.date
-            div(class="lender")=    users[prot.buyer]
-            div(class="ware")=      prot.ware
-            div(class="orig-debt")= prot.originalDebt
-            div(class="debt-left")= prot.debtLeft
+  div.protocol-container
+    div.protocol-table-header
+      div(class="date")      Date
+      div(class="lender")    Lender
+      div(class="debtor")    Debtor
+      div(class="ware")      Ware
+      div(class="debt-left") Debt left
+      div(class="orig-debt") Original debt
+    div.protocol-scroll-box
+      - count = 0;
+      - each prot in protocols
+        - var c1 = loggedIn==prot.buyer?'owed':'lended';
+        - var c2 = prot.debtLeft==0?'inactive':'active';
+        - var c3 = count++%2==0?'odd':'even';
+        div(class="#{c1} #{c2} #{c3} protocol-table-row")
+          div(class="date")=      prot.date
+          div(class="lender")=    users[prot.buyer]
+          div(class="debtor")=    users[prot.debtor]
+          div(class="ware")=      prot.ware
+          div(class="debt-left")= prot.debtLeftFormatted
+          div(class="orig-debt")= prot.originalDebtFormatted

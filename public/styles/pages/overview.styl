@@ -2,6 +2,15 @@ table-cell-border-color = cornflowerblue
 table-border-color = #33CC33
 table-background-color = #DCE2DE
 table-header-background-color = darkgreen
+even-color = #F5FBF7
+
+dateWidth = 150px
+debtorWidth = 300px
+lenderWidth = 300px
+wareWidth = 250px
+origDebtWidth = 160px
+debtWidth = 160px
+protocol-row-padding = 10px
 
 .overview-table
   background: table-background-color
@@ -28,7 +37,7 @@ table-header-background-color = darkgreen
     border: 1px solid table-border-color
 
     .even
-      background: #F5FBF7
+      background: even-color
 
   td
     border-spacing: 0
@@ -38,35 +47,63 @@ table-header-background-color = darkgreen
     text-align: right
 
 .protocol-container
-  font-size: 12px
-  background:blue
-
-  .protocol-table-header
-    font-weight: bold
-    background: crimson
-    margin:0
-    padding:0
-  
-  .active
-    background: green
+  width: dateWidth + lenderWidth + debtorWidth + wareWidth + origDebtWidth + debtWidth + 2*6*protocol-row-padding
+  margin-left: auto
+  margin-right: auto
+  margin-top: 40px
+ 
+  .even
+    background: even-color
+  .odd
+    background: table-background-color
   .inactive
     background: gray
-  
+    
+.protocol-table-header
+  div
+    display: inline-block
+    padding: protocol-row-padding
+
+  font-size: 25px
+  font-weight: bold
+  background: table-header-background-color
+  color: white
+  margin:0
+
+  .date
+    width: dateWidth
+  .debtor
+    width: debtorWidth
+  .lender
+    width: lenderWidth
+  .ware
+    width: wareWidth
+  .orig-debt
+    text-align: right
+    width: origDebtWidth
+  .debt-left
+    text-align: right
+    width: debtWidth
 
 .protocol-table-row
   div
     display: inline-block
+    padding: protocol-row-padding
+
+  font-size: 20px
 
   .date
-    width: 100px
+    width: dateWidth
+  .debtor
+    width: debtorWidth
   .lender
-    width: 200px
+    width: lenderWidth
   .ware
-    width: 100px
+    width: wareWidth
   .orig-debt
     text-align: right
-    width: 80px
+    width: origDebtWidth
   .debt-left
     text-align: right
-    width: 70px
+    width: debtWidth
 

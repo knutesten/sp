@@ -1,5 +1,6 @@
 var Users = require('../models/users')
-  , Protocols = require('../models/protocols');
+  , Protocols = require('../models/protocols')
+  , formatNumber = require('./format-number');
 
 // Generate a list of what you owe each of the other users.
 module.exports = function generateOverview(loggedIn, callback) {
@@ -73,16 +74,7 @@ module.exports = function generateOverview(loggedIn, callback) {
 
     // Format numbers
     for (var key in overview) {
-      var number = overview[key].owed;
-
-      // Use two decimals and use ',' instead of '.' (norwegian standard).
-      number = number.toFixed(2).replace('.', ',');
-
-      // Add a space if the number is above 999.99. (ex. 1 000.33).
-      var len = number.length;
-      number =len>6?number.substring(0, len-6)+' '+number.substring(len-6):number;
-
-      overview[key].owedFormatted = number;  
+      overview[key].owedFormatted = formatNumber(overview[key].owed);  
     }
 
     callback(null, overview);

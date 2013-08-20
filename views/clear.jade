@@ -2,7 +2,10 @@ extends layout
 
 block content
   div.header
-    h1 Clear your debt
+    div.back-button
+      a(href="main") < Back
+    div.title
+      h1 Create a new protocol
 
   form(method="post")#clear-form.standard-form
     div.form-body

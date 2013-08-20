@@ -2,7 +2,10 @@ extends layout
 
 block content
   div.header
-    h1 Create a new protocol
+    div.back-button
+      a(href="main") < Back
+    div.title
+      h1 Create a new protocol
   form(method="post")#create-form.standard-form
     div.form-body
       - if(typeof(info) == 'string')

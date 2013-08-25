@@ -8,6 +8,7 @@ handler['/main'] = require('./main');
 handler['/create'] = require('./create');
 handler['/overview'] = require('./overview');
 handler['/clear'] = require('./clear');
+handler['/password'] = require('./password');
 
 module.exports = function (app) {
   for(var route in handler){

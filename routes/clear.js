@@ -27,7 +27,7 @@ exports.get = function (req, res) {
       res.render('clear', { debtList: debtList, info: info });
     }
   });
-}
+};
 
 // TODO: Server side validation of the amount, it should not be larger than your debt. The lender should also be checked.
 exports.post = function (req, res) {
@@ -35,6 +35,20 @@ exports.post = function (req, res) {
   var lender = req.body.lender;
   var amount = req.body.amount;
   var protocolsToUpdate = [];
+  
+  // Add record of clearing debt.
+  new Protocols({
+    buyer: loggedIn,
+    date: getNowDate(),
+    ware: 'Cleared: ' + amount,
+    debtor: lender, 
+    originalDebt: 0,
+    debtLeft: 0
+  }).save(function (err) {
+    if (err) {
+      // TODO: Handle write error.
+    }
+  });
 
   Protocols
     .find({ 
@@ -82,4 +96,9 @@ exports.post = function (req, res) {
     req.session.info = 'The protocols have been updated.';
     res.redirect('clear');
   }
-}
+
+  function getNowDate() {
+      var now = new Date();
+      return [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("-");
+  }
+};

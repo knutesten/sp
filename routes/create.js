@@ -44,20 +44,20 @@ exports.post = function (req, res) {
         }
 
         //Is true when all the protocols have been written to the database.
-        if (--protocolsLeft == 0){
+        if (--protocolsLeft === 0){
           writeDone();
         }
       });
     }
 
-    for (var i in protocolsToUpdate) {
+    for (i in protocolsToUpdate) {
       var p = protocolsToUpdate[i];
       Protocols.update({ _id: p._id }, { debtLeft: p.debtLeft }, function (err, nr) {
         if (err) {
           // TODO: Handle error.
         }
 
-        if (--protocolsLeft == 0) {
+        if (--protocolsLeft === 0) {
           writeDone();
         }
       });

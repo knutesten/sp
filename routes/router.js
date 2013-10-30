@@ -9,6 +9,7 @@ handler['/create'] = require('./create');
 handler['/overview'] = require('./overview');
 handler['/clear'] = require('./clear');
 handler['/password'] = require('./password');
+handler['/fjols'] = require('./fjols');
 
 module.exports = function (app) {
   for(var route in handler){

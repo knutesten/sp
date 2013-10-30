@@ -1,6 +1,7 @@
 var hash = require('./pass').hash;
 var Users = require('../models/users');
 
+
 /* CREATE DUMMY USERS */
 /*
 hash('pass', function (err, salt, hash) {
@@ -16,15 +17,7 @@ hash('pass', function (err, salt, hash) {
     username: 'krogh',
     hash: hash,
     salt: salt,
-    name: 'Vegar(d) Krogh Arnesen'
-  }).save();
-});
-hash('pass', function (err, salt, hash) {
-  new Users({
-    username: 'jhsoby',
-    hash: hash,
-    salt: salt,
-    name: 'Jon Harald Søby'
+    name: 'Vegar Krogh Arnesen'
   }).save();
 });
 hash('pass', function (err, salt, hash) {

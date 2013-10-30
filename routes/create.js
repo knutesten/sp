@@ -20,55 +20,59 @@ exports.get = function (req, res) {
           users[0] = tmp;
         }
       }
-      
+
       res.render('create', { users: users, info: info });
     }
   });
 };
 
 exports.post = function (req, res) {
-  validateForm(req, function (err, protocolsToUpdate, newProtocols) {
+  clearDebt(req, function (err, protocolsToUpdate, newProtocols) {
     if (err) {
-      // TODO: Find some smart way to handle this type of error. Can't really send it with res.render, because you don't have access to the users. NB: This type of error will never happen before the server side validation is implemented.
-    } else {
-      // Save all the new protocols to the database in parallel
-      var protocolsLeft = newProtocols.length + protocolsToUpdate.length;
-      for (var i in newProtocols) {
-        newProtocols[i].save(function (err) {
-          if (err) {
-            // TODO: Handle write error.
-          }
+      // TODO: Find some smart way to handle this type of error. Can't really send it with res.render, because you don't
+      // have access to the users. NB: This type of error will never happen before the server side validation is
+      // implemented.
+      return;
+    }
 
-          //Is true when all the protocols have been written to the database.
-          if (--protocolsLeft == 0){
-            writeDone();
-          }
-        });
-      }
+    // Save all the new protocols to the database in parallel
+    var protocolsLeft = newProtocols.length + protocolsToUpdate.length;
+    for (var i in newProtocols) {
+      newProtocols[i].save(function (err) {
+        if (err) {
+          // TODO: Handle write error.
+        }
 
-      for (var i in protocolsToUpdate) {
-        var p = protocolsToUpdate[i];
-        Protocols.update({ _id: p._id }, { debtLeft: p.debtLeft }, function (err, nr) {
-          if (err) {
-            // TODO: Handle error.
-          }
+        //Is true when all the protocols have been written to the database.
+        if (--protocolsLeft == 0){
+          writeDone();
+        }
+      });
+    }
 
-          if (--protocolsLeft == 0) {
-            writeDone();
-          }
-        });
-      }
+    for (var i in protocolsToUpdate) {
+      var p = protocolsToUpdate[i];
+      Protocols.update({ _id: p._id }, { debtLeft: p.debtLeft }, function (err, nr) {
+        if (err) {
+          // TODO: Handle error.
+        }
 
-      function writeDone() {
-        req.session.info = 'The protocols have been saved.';
-        res.redirect('create');
-      }
+        if (--protocolsLeft == 0) {
+          writeDone();
+        }
+      });
+    }
+
+    function writeDone() {
+      req.session.info = 'The protocols have been saved.';
+      res.redirect('create');
     }
   });
 };
 
-// TODO: Actual server-side validation. This might not be necessary because the chance of any of the users tampering with the POST-data or JavaScript validation is unlikely.
-function validateForm(req, callback) {
+// TODO: Actual server-side validation. This might not be necessary because the chance of any of the users tampering
+// with the POST-data or JavaScript validation is unlikely.
+function clearDebt(req, callback) {
   var loggedIn = req.session.user.username;
   var newProtocols = [];
   var protocols = [];
@@ -80,10 +84,10 @@ function validateForm(req, callback) {
   var price = parseFloat(req.body.price);
   var debt = price / debtors.length;
   // Only two decimals precision.
-  debt = parseFloat(debt.toFixed(2)); 
+  debt = parseFloat(debt.toFixed(2));
 
   //Remove logged in user from the debtors.
-  if (debtors[0]==loggedIn) { debtors.shift() }
+  if (debtors[0]==loggedIn) { debtors.shift(); }
 
   // Find who the logged in user owes money.
   var finds = [];
@@ -98,7 +102,7 @@ function validateForm(req, callback) {
 
   var findsLeft = finds.length;
   // Execute the finds.
-  for (var i in finds) {
+  for (i in finds) {
     order(i, finds[i]);
   }
 
@@ -109,15 +113,14 @@ function validateForm(req, callback) {
       }
 
       protocols[i] = result;
-      if (--findsLeft == 0) {
+      if (--findsLeft === 0) {
         done();
       }
     });
   }
-  
-  function done() { 
-    for (var i in debtors) {
 
+  function done() {
+    for (var i in debtors) {
       // Go through the old protocols and change the debtLeft.
       var debtLeft = debt;
       for (var j in protocols[i]) {
@@ -146,4 +149,4 @@ function validateForm(req, callback) {
 
     callback(null, protocolsToUpdate, newProtocols);
   }
-};
+}

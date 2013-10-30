@@ -52,7 +52,7 @@ exports.authenticate = function (username, password, callback) {
         return callback(err);
       }
 
-      if (hash == user.hash) {
+      if (hash === user.hash) {
         return callback(null, user);
       }
 
@@ -71,8 +71,10 @@ exports.authenticateCookie = function (username, hash, callback) {
       return callback(new Error('Cannot find user.'));
     }
 
-    if (hash = user.hash) {
+    if (hash === user.hash) {
       return callback(null, user);
     }
+
+    return callback(new Error('Incorrect password hash.'));
   });
 };

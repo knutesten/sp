@@ -2,13 +2,13 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , router = require('./routes/router')
-  , http = require('http')
-  , path = require('path')
-  , MongoStore = require('connect-mongo')(express)
-  , mongoose = require('mongoose')
-  , konphyg = require('konphyg')(__dirname + '/config');
+var express = require('express'),
+  router = require('./routes/router'),
+  http = require('http'),
+  path = require('path'),
+  MongoStore = require('connect-mongo')(express),
+  mongoose = require('mongoose'),
+  konphyg = require('konphyg')(__dirname + '/config');
 
 var app = express();
 var config = konphyg('sp');

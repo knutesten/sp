@@ -6,7 +6,7 @@ exports.get = function (req, res) {
     res.redirect('main');
   } else {
     // Check if there are cookies, if so attempt auto-login.
-    if (req.cookies.username == undefined || req.cookies.hash == undefined) {
+    if (req.cookies.username === undefined || req.cookies.hash === undefined) {
       res.render('login');
     } else {
       auth.authenticateCookie(req.cookies.username, req.cookies.hash, function(err, user) {
